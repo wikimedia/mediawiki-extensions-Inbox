@@ -34,8 +34,7 @@ class SpecialInbox extends SpecialPage {
 		$email = Email::get( $emailAddress, $emailId );
 		if ( $email ) {
 			$out->setArticleBodyOnly( true );
-			// @phan-suppress-next-line SecurityCheck-XSS
-			$out->addHTML( $email->email_subject );
+			$out->addHTML( htmlspecialchars( $email->email_subject ) );
 			$out->addHTML( '<hr />' );
 			$headers = array_change_key_case( FormatJson::decode( $email->email_headers, true ) );
 			if ( strpos( $headers[ 'content-type' ], 'multipart' ) !== false ) {
@@ -63,11 +62,21 @@ class SpecialInbox extends SpecialPage {
 	 * @param bool $plainText
 	 */
 	private function showEmailcontent( $content, $plainText = false ) {
-		$this->getOutput()->addHTML( Html::rawElement(
-			$plainText ? 'pre' : 'div',
-			[],
-			quoted_printable_decode( $content )
-		) );
+		$decodedContent = quoted_printable_decode( $content );
+		if ( $plainText ) {
+			$html = Html::element(
+				'pre',
+				[],
+				$decodedContent
+			);
+		} else {
+			$html = Html::rawElement(
+				'div',
+				[],
+				$decodedContent
+			);
+		}
+		$this->getOutput()->addHTML( $html );
 	}
 
 	/**
