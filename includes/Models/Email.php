@@ -6,7 +6,7 @@ use FormatJson;
 use MailAddress;
 use MediaWiki\MediaWikiServices;
 use stdClass;
-use Wikimedia\Rdbms\ResultWrapper;
+use Wikimedia\Rdbms\IResultWrapper;
 
 class Email {
 
@@ -94,7 +94,7 @@ class Email {
 
 	/**
 	 * @param string $emailAddress
-	 * @return ResultWrapper
+	 * @return IResultWrapper
 	 */
 	public static function getAll( $emailAddress ) {
 		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
