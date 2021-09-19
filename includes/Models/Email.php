@@ -59,7 +59,7 @@ class Email {
 	 * Save email to DB
 	 */
 	public function save() {
-		$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_MASTER );
+		$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
 		$dbw->insert(
 			'inbox_email',
 			[
@@ -125,7 +125,7 @@ class Email {
 	 * @param string $id
 	 */
 	public static function markRead( $id ) {
-		$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_MASTER );
+		$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
 		$dbw->update(
 			'inbox_email',
 			[ 'email_read' => 1 ],
