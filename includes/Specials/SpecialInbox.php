@@ -86,7 +86,10 @@ class SpecialInbox extends SpecialPage {
 		parent::execute( null );
 		$emails = Email::getAll( $emailAddress );
 		if ( $emails ) {
-			$this->getOutput()->addModuleStyles( 'inbox.style' );
+			$this->getOutput()->addModuleStyles( [
+				'inbox.style',
+				'mediawiki.pager.tablePager',
+			] );
 			// @phan-suppress-next-line SecurityCheck-XSS
 			$this->getOutput()->addHTML( Html::rawElement(
 				'table',
