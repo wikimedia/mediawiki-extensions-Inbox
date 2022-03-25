@@ -58,6 +58,7 @@ class Hooks {
 			'href' => SpecialPage::getTitleFor( 'Inbox' )->getLinkURL(),
 			'text' => $text,
 			'class' => 'tbd',
+			'icon' => 'message',
 		];
 
 		$personal_urls = wfArrayInsertAfter( $personal_urls, [ 'inbox' => $inboxLink ], 'userpage' );
