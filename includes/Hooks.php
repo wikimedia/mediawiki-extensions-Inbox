@@ -8,7 +8,6 @@ use MailAddress;
 use OutputPage;
 use SkinTemplate;
 use SpecialPage;
-use Title;
 
 class Hooks {
 
@@ -35,18 +34,16 @@ class Hooks {
 	}
 
 	/**
-	 * Handler for PersonalUrls hook.
+	 * Handler for SkinTemplateNavigation::Universal hook.
 	 * Add a "Notifications" item to the user toolbar ('personal URLs').
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/PersonalUrls
-	 * @param array &$personal_urls Array of URLs to append to.
-	 * @param Title &$title Title of page being visited.
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SkinTemplateNavigation::Universal
 	 * @param SkinTemplate $sk
-	 * @return bool true in all cases
+	 * @param array &$links
 	 */
-	public static function onPersonalUrls( &$personal_urls, &$title, $sk ) {
+	public static function onSkinTemplateNavigationUniversal( $sk, &$links ): void {
 		$user = $sk->getUser();
 		if ( $user->isAnon() || !$user->getEmail() ) {
-			return true;
+			return;
 		}
 
 		$unreadCount = Email::getUnreadCount( $user->getEmail() );
@@ -61,7 +58,9 @@ class Hooks {
 			'icon' => 'message',
 		];
 
-		$personal_urls = wfArrayInsertAfter( $personal_urls, [ 'inbox' => $inboxLink ], 'userpage' );
+		if ( isset( $links['user-menu'] ) ) {
+			$links['user-menu'] = wfArrayInsertAfter( $links['user-menu'], [ 'inbox' => $inboxLink ], 'userpage' );
+		}
 	}
 
 	/**
