@@ -16,6 +16,13 @@ class SpecialInbox extends SpecialPage {
 	/**
 	 * @inheritDoc
 	 */
+	protected function getGroupName() {
+		return 'login';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public function execute( $par ) {
 		$this->requireLogin();
 		if ( is_numeric( $par ) ) {
