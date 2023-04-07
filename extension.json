@@ -7,7 +7,7 @@
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:Inbox",
 	"requires": {
-		"MediaWiki": ">= 1.35.3"
+		"MediaWiki": ">= 1.41.0"
 	},
 	"AutoloadNamespaces": {
 		"Inbox\\": "includes/"
