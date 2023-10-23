@@ -27,7 +27,8 @@
 		"LoadExtensionSchemaUpdates": "Inbox\\Hooks::onLoadExtensionSchemaUpdates",
 		"AlternateUserMailer": "Inbox\\Hooks::onAlternateUserMailer",
 		"SkinTemplateNavigation::Universal": "Inbox\\Hooks::onSkinTemplateNavigationUniversal",
-		"OutputPageCheckLastModified": "Inbox\\Hooks::onOutputPageCheckLastModified"
+		"OutputPageCheckLastModified": "Inbox\\Hooks::onOutputPageCheckLastModified",
+		"BeforePageDisplay": "Inbox\\Hooks::onBeforePageDisplay"
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "modules",

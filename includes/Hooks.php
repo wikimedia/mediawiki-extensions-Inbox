@@ -5,7 +5,9 @@ namespace Inbox;
 use DatabaseUpdater;
 use Inbox\Models\Email;
 use MailAddress;
+use MediaWiki\Html\Html;
 use OutputPage;
+use Skin;
 use SkinTemplate;
 use SpecialPage;
 
@@ -75,6 +77,24 @@ class Hooks {
 				$modifiedTimes[ 'inbox-newest-email' ] = $newestEmailTimestamp;
 			}
 		}
+	}
+
+	/**
+	 * Display big warning message to prevent accidental installation
+	 * on production wiki.
+	 *
+	 * @param OutputPage $out
+	 * @param Skin $skin
+	 */
+	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
+		if ( $out->getTitle()->getNamespace() === NS_SPECIAL ) {
+			return;
+		}
+
+		$out->prependHTML( Html::errorBox(
+			$out->msg( 'inbox-prod-warning' )->text(),
+			$out->msg( 'inbox' )->text()
+		) );
 	}
 
 }
