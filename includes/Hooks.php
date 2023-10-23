@@ -6,16 +6,20 @@ use Config;
 use Inbox\Models\Email;
 use MailAddress;
 use MediaWiki\Hook\AlternateUserMailerHook;
+use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\Hook\OutputPageCheckLastModifiedHook;
 use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
+use MediaWiki\Html\Html;
 use OutputPage;
+use Skin;
 use SkinTemplate;
 use SpecialPage;
 
 class Hooks implements
 	AlternateUserMailerHook,
 	SkinTemplateNavigation__UniversalHook,
-	OutputPageCheckLastModifiedHook
+	OutputPageCheckLastModifiedHook,
+	BeforePageDisplayHook
 {
 
 	/** @var Config */
@@ -91,6 +95,28 @@ class Hooks implements
 				$modifiedTimes[ 'inbox-newest-email' ] = $newestEmailTimestamp;
 			}
 		}
+	}
+
+	/**
+	 * Display big warning message to prevent accidental installation
+	 * on production wiki.
+	 *
+	 * @param OutputPage $out
+	 * @param Skin $skin
+	 */
+	public function onBeforePageDisplay( $out, $skin ): void {
+		if ( $out->getConfig()->get( 'InboxHideProductionWarningBanner' ) ) {
+			return;
+		}
+
+		if ( $out->getTitle()->getNamespace() === NS_SPECIAL ) {
+			return;
+		}
+
+		$out->prependHTML( Html::errorBox(
+			$out->msg( 'inbox-prod-warning' )->text(),
+			$out->msg( 'inbox' )->text()
+		) );
 	}
 
 }

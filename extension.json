@@ -27,7 +27,8 @@
 		"LoadExtensionSchemaUpdates": "schema",
 		"AlternateUserMailer": "hooks",
 		"SkinTemplateNavigation::Universal": "hooks",
-		"OutputPageCheckLastModified": "hooks"
+		"OutputPageCheckLastModified": "hooks",
+		"BeforePageDisplay": "hooks"
 	},
 	"HookHandlers": {
 		"hooks": {
@@ -62,6 +63,10 @@
 		},
 		"InboxSkipRegularEmail": {
 			"description": "Whether to skip sending email in the regular way, and only use Inbox",
+			"value": false
+		},
+		"InboxHideProductionWarningBanner": {
+			"description": "Safeguard configuration to ensure installation of the extension is deliberate and NOT on a production site.",
 			"value": false
 		}
 	},
