@@ -24,10 +24,21 @@
 		"Inbox": "Inbox\\Specials\\SpecialInbox"
 	},
 	"Hooks": {
-		"LoadExtensionSchemaUpdates": "Inbox\\Hooks::onLoadExtensionSchemaUpdates",
-		"AlternateUserMailer": "Inbox\\Hooks::onAlternateUserMailer",
-		"SkinTemplateNavigation::Universal": "Inbox\\Hooks::onSkinTemplateNavigationUniversal",
-		"OutputPageCheckLastModified": "Inbox\\Hooks::onOutputPageCheckLastModified"
+		"LoadExtensionSchemaUpdates": "schema",
+		"AlternateUserMailer": "hooks",
+		"SkinTemplateNavigation::Universal": "hooks",
+		"OutputPageCheckLastModified": "hooks"
+	},
+	"HookHandlers": {
+		"hooks": {
+			"class": "Inbox\\Hooks",
+			"services": [
+				"MainConfig"
+			]
+		},
+		"schema": {
+			"class": "Inbox\\SchemaHooks"
+		}
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "modules",

@@ -2,20 +2,32 @@
 
 namespace Inbox;
 
-use DatabaseUpdater;
+use Config;
 use Inbox\Models\Email;
 use MailAddress;
+use MediaWiki\Hook\AlternateUserMailerHook;
+use MediaWiki\Hook\OutputPageCheckLastModifiedHook;
+use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
 use OutputPage;
 use SkinTemplate;
 use SpecialPage;
 
-class Hooks {
+class Hooks implements
+	AlternateUserMailerHook,
+	SkinTemplateNavigation__UniversalHook,
+	OutputPageCheckLastModifiedHook
+{
+
+	/** @var Config */
+	private $config;
 
 	/**
-	 * @param DatabaseUpdater $updater
+	 * @param Config $config
 	 */
-	public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
-		$updater->addExtensionTable( 'inbox_email', dirname( __DIR__ ) . "/sql/inbox.sql" );
+	public function __construct(
+		Config $config
+	) {
+		$this->config = $config;
 	}
 
 	/**
@@ -28,11 +40,10 @@ class Hooks {
 	 *   regular way, or false to skip the regular method of sending mail. Return a string
 	 *   to return a php-mail-error message containing the error.
 	 */
-	public static function onAlternateUserMailer( $headers, $to, $from, $subject, $body ) {
-		global $wgInboxSkipRegularEmail;
+	public function onAlternateUserMailer( $headers, $to, $from, $subject, $body ) {
 		$email = new Email( $headers, $to, $from, $subject, $body );
 		$email->save();
-		if ( $wgInboxSkipRegularEmail ) {
+		if ( $this->config->get( 'InboxSkipRegularEmail' ) ) {
 			return false;
 		}
 	}
@@ -43,8 +54,9 @@ class Hooks {
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SkinTemplateNavigation::Universal
 	 * @param SkinTemplate $sk
 	 * @param array &$links
+	 * @phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
 	 */
-	public static function onSkinTemplateNavigationUniversal( $sk, &$links ): void {
+	public function onSkinTemplateNavigation__Universal( $sk, &$links ): void {
 		$user = $sk->getUser();
 		if ( $user->isAnon() || !$user->getEmail() ) {
 			return;
@@ -71,7 +83,7 @@ class Hooks {
 	 * @param array &$modifiedTimes
 	 * @param OutputPage $out
 	 */
-	public static function onOutputPageCheckLastModified( array &$modifiedTimes, OutputPage $out ) {
+	public function onOutputPageCheckLastModified( &$modifiedTimes, $out ) {
 		$user = $out->getUser();
 		if ( $user->isRegistered() ) {
 			$newestEmailTimestamp = Email::getNewestEmailTimestamp( $user->getEmail() );
