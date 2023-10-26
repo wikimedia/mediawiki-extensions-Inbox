@@ -48,6 +48,10 @@
 		"InboxEnabled": {
 			"description": "Global ON/OFF switch for the Inbox features.",
 			"value": false
+		},
+		"InboxSkipRegularEmail": {
+			"description": "Whether to skip sending email in the regular way, and only use Inbox",
+			"value": false
 		}
 	},
 	"manifest_version": 2

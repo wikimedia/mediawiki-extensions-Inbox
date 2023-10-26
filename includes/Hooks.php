@@ -29,8 +29,12 @@ class Hooks {
 	 *   to return a php-mail-error message containing the error.
 	 */
 	public static function onAlternateUserMailer( $headers, $to, $from, $subject, $body ) {
+		global $wgInboxSkipRegularEmail;
 		$email = new Email( $headers, $to, $from, $subject, $body );
 		$email->save();
+		if ( $wgInboxSkipRegularEmail ) {
+			return false;
+		}
 	}
 
 	/**
