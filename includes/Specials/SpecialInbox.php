@@ -48,13 +48,20 @@ class SpecialInbox extends SpecialPage {
 				preg_match( '/boundary=\"(.*?)\"/', $headers[ 'content-type' ], $m );
 				$boundary = $m[1];
 				$parts = explode( '--' . $boundary, $email->email_body );
+				// Assume multiparts emails are always using Content-Transfer-Encoding: quoted-printable
+				// FIXME: We should probably parse the part headers here
+				$parts = array_map( 'quoted_printable_decode', $parts );
 				$this->showEmailcontent( $parts[1], true );
 				$out->addHTML( '<hr />' );
 				$this->showEmailcontent( $parts[2] );
-			} elseif ( strpos( $headers[ 'content-type' ], 'text/plain' ) >= 0 ) {
-				$this->showEmailcontent( $email->email_body, true );
 			} else {
-				$this->showEmailcontent( $email->email_body );
+				$plaintext = strpos( $headers[ 'content-type' ], 'text/plain' ) >= 0;
+				$quotedPrintable = strtolower( $headers[ 'content-transfer-encoding' ] ?? '' ) === 'quoted-printable';
+				$body = $email->email_body;
+				if ( $quotedPrintable ) {
+					$body = quoted_printable_decode( $body );
+				}
+				$this->showEmailcontent( $body, $plaintext );
 			}
 
 			Email::markRead( $emailId );
@@ -69,18 +76,17 @@ class SpecialInbox extends SpecialPage {
 	 * @param bool $plainText
 	 */
 	private function showEmailcontent( $content, $plainText = false ) {
-		$decodedContent = quoted_printable_decode( $content );
 		if ( $plainText ) {
 			$html = Html::element(
 				'pre',
 				[],
-				$decodedContent
+				$content
 			);
 		} else {
 			$html = Html::rawElement(
 				'div',
 				[],
-				$decodedContent
+				$content
 			);
 		}
 		$this->getOutput()->addHTML( $html );
