@@ -114,7 +114,7 @@ class Hooks implements
 		}
 
 		$out->prependHTML( Html::errorBox(
-			$out->msg( 'inbox-prod-warning' )->text(),
+			$out->msg( 'inbox-prod-warning' )->parse(),
 			$out->msg( 'inbox' )->text()
 		) );
 	}
