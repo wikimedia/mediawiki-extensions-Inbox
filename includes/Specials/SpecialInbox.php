@@ -101,7 +101,7 @@ class SpecialInbox extends SpecialPage {
 		if ( $emails ) {
 			$this->getOutput()->addModuleStyles( [
 				'inbox.style',
-				'mediawiki.pager.tablePager',
+				'mediawiki.pager.styles',
 			] );
 			// @phan-suppress-next-line SecurityCheck-XSS
 			$this->getOutput()->addHTML( Html::rawElement(
