@@ -117,7 +117,8 @@ class Email {
 		return $dbr->selectRow(
 			'inbox_email',
 			[ 'email_from', 'email_headers', 'email_subject', 'email_body', 'email_timestamp' ],
-			[ 'email_id' => $id, 'email_to' => $emailAddress ]
+			[ 'email_id' => $id, 'email_to' => $emailAddress ],
+			__METHOD__
 		);
 	}
 
@@ -129,7 +130,8 @@ class Email {
 		$dbw->update(
 			'inbox_email',
 			[ 'email_read' => 1 ],
-			[ 'email_id' => $id ]
+			[ 'email_id' => $id ],
+			__METHOD__
 		);
 	}
 }
