@@ -19,9 +19,10 @@ module.exports = function ( grunt ) {
 			]
 		},
 		stylelint: {
-			all: [
-				'modules/**/*.less'
-			]
+			options: {
+				cache: true
+			},
+			all: [ 'modules/**/*.less' ]
 		},
 		banana: conf.MessagesDirs
 	} );
