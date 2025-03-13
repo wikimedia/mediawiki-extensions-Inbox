@@ -3,8 +3,8 @@
 namespace Inbox\Specials;
 
 use FormatJson;
-use Html;
 use Inbox\Models\Email;
+use MediaWiki\Html\Html;
 use SpecialPage;
 
 class SpecialInbox extends SpecialPage {
