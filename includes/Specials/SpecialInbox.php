@@ -5,6 +5,7 @@ namespace Inbox\Specials;
 use FormatJson;
 use Inbox\Models\Email;
 use MediaWiki\Html\Html;
+use Profiler;
 use SpecialPage;
 
 class SpecialInbox extends SpecialPage {
@@ -37,6 +38,9 @@ class SpecialInbox extends SpecialPage {
 	 * @param string $emailId
 	 */
 	private function showEmail( $emailAddress, $emailId ) {
+		// Ignore warnings about writes on GET when the email is marked as read
+		$scope = Profiler::instance()->getTransactionProfiler()->silenceForScope();
+
 		$out = $this->getOutput();
 		$email = Email::get( $emailAddress, $emailId );
 		if ( $email ) {
