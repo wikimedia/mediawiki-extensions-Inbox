@@ -2,5 +2,6 @@
 	"@metadata": [],
 	"inbox-desc": "{{desc|name=Inbox|url=https://www.mediawiki.org/wiki/Extension:Inbox}}",
 	"inbox": "Title for Special:Inbox",
+	"inbox-mark-all-as-read": "Button label",
 	"inbox-prod-warning": "Message shown on all pages when the extension is loaded. It warns against using the extension on a production site."
 }

@@ -4,5 +4,6 @@
 	},
 	"inbox-desc": "This extension provides a way to test emails locally.",
 	"inbox": "Inbox",
+	"inbox-mark-all-as-read": "Mark all as read",
 	"inbox-prod-warning": "The Inbox extension is for development and testing only. This should never be installed on a production site."
 }

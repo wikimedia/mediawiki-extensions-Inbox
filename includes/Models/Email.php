@@ -134,4 +134,14 @@ class Email {
 			__METHOD__
 		);
 	}
+
+	public static function markAllRead( string $to ) {
+		$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
+		$dbw->update(
+			'inbox_email',
+			[ 'email_read' => 1 ],
+			[ 'email_to' => $to ],
+			__METHOD__
+		);
+	}
 }

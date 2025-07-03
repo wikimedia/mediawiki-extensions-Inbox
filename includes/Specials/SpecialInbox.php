@@ -5,8 +5,9 @@ namespace Inbox\Specials;
 use FormatJson;
 use Inbox\Models\Email;
 use MediaWiki\Html\Html;
+use MediaWiki\HTMLForm\HTMLForm;
+use MediaWiki\SpecialPage\SpecialPage;
 use Profiler;
-use SpecialPage;
 
 class SpecialInbox extends SpecialPage {
 
@@ -101,6 +102,24 @@ class SpecialInbox extends SpecialPage {
 	 */
 	private function showAllEmails( $emailAddress ) {
 		parent::execute( null );
+
+		// Show button to mark all as read / mark them as read if the button was clicked
+		$htmlForm = HTMLForm::factory( 'codex', [
+			[
+				'type' => 'submit',
+				'flags' => [],
+				'buttonlabel-message' => 'inbox-mark-all-as-read',
+			]
+		], $this->getContext() )
+			->suppressDefaultSubmit()
+			->setSubmitCallback( static function ( $formData, $form ) use ( $emailAddress ) {
+				// Ignore warnings about writes on GET when the email is marked as read
+				$scope = Profiler::instance()->getTransactionProfiler()->silenceForScope();
+				Email::markAllRead( $emailAddress );
+				return true;
+			} )
+			->showAlways();
+
 		$emails = Email::getAll( $emailAddress );
 		if ( $emails ) {
 			$this->getOutput()->addModuleStyles( [
