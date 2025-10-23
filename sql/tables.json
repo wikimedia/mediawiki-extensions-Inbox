@@ -1,0 +1,72 @@
+[
+	{
+		"name": "inbox_email",
+		"columns": [
+			{
+				"name": "email_id",
+				"type": "integer",
+				"options": {
+					"autoincrement": true,
+					"unsigned": true
+				}
+			},
+			{
+				"name": "email_headers",
+				"type": "blob",
+				"options": {
+					"length": 65535,
+					"notnull": false
+				}
+			},
+			{
+				"name": "email_to",
+				"type": "binary",
+				"options": {
+					"length": 255
+				}
+			},
+			{
+				"name": "email_from",
+				"type": "binary",
+				"options": {
+					"length": 255
+				}
+			},
+			{
+				"name": "email_subject",
+				"type": "binary",
+				"options": {
+					"length": 2000
+				}
+			},
+			{
+				"name": "email_body",
+				"type": "blob",
+				"options": {
+					"length": 65535
+				}
+			},
+			{
+				"name": "email_timestamp",
+				"type": "mwtimestamp",
+				"options": {}
+			},
+			{
+				"name": "email_read",
+				"type": "mwtinyint",
+				"options": {
+					"length": 1,
+					"default": 0
+				}
+			}
+		],
+		"indexes": [
+			{
+				"name": "email_to",
+				"columns": [ "email_to" ],
+				"unique": false
+			}
+		],
+		"pk": [ "email_id" ]
+	}
+]
