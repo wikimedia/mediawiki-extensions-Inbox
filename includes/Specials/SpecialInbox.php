@@ -15,50 +15,42 @@ class SpecialInbox extends SpecialPage {
 		parent::__construct( 'Inbox' );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	/** @inheritDoc */
 	protected function getGroupName() {
 		return 'login';
 	}
 
-	/**
-	 * @inheritDoc
-	 */
-	public function execute( $par ) {
+	/** @inheritDoc */
+	public function execute( $subPage ) {
 		$this->requireLogin();
-		if ( is_numeric( $par ) ) {
-			$this->showEmail( $this->getUser()->getEmail(), $par );
+		if ( is_numeric( $subPage ) ) {
+			$this->showEmail( $this->getUser()->getEmail(), $subPage );
 		} else {
 			$this->showAllEmails( $this->getUser()->getEmail() );
 		}
 	}
 
-	/**
-	 * @param string $emailAddress
-	 * @param string $emailId
-	 */
-	private function showEmail( $emailAddress, $emailId ) {
+	private function showEmail( string $emailAddress, string $emailId ): void {
 		// Ignore warnings about writes on GET when the email is marked as read
 		$scope = Profiler::instance()->getTransactionProfiler()->silenceForScope();
 
 		$out = $this->getOutput();
 		$email = Email::get( $emailAddress, $emailId );
-		if ( $email ) {
+		if ( $email !== false ) {
 			$out->setArticleBodyOnly( true );
 			$out->addHTML( htmlspecialchars( $email->email_subject ) );
 			$out->addHTML( '<hr />' );
 			$headers = array_change_key_case( FormatJson::decode( $email->email_headers, true ) );
-			if ( strpos( $headers[ 'content-type' ], 'multipart' ) !== false ) {
+			if ( str_contains( $headers['content-type'], 'multipart' ) ) {
 				preg_match( '/boundary=\"(.*?)\"/', $headers[ 'content-type' ], $m );
 				$boundary = $m[1];
 				$parts = explode( '--' . $boundary, $email->email_body );
-				// Assume multiparts emails are always using Content-Transfer-Encoding: quoted-printable
+				// Assume multipart emails are always using Content-Transfer-Encoding: quoted-printable
 				// FIXME: We should probably parse the part headers here
 				$parts = array_map( 'quoted_printable_decode', $parts );
-				$this->showEmailcontent( $parts[1], true );
+				$this->showEmailContent( $parts[1], true );
 				$out->addHTML( '<hr />' );
-				$this->showEmailcontent( $parts[2] );
+				$this->showEmailContent( $parts[2] );
 			} else {
 				$plaintext = strpos( $headers[ 'content-type' ], 'text/plain' ) >= 0;
 				$quotedPrintable = strtolower( $headers[ 'content-transfer-encoding' ] ?? '' ) === 'quoted-printable';
@@ -66,21 +58,18 @@ class SpecialInbox extends SpecialPage {
 				if ( $quotedPrintable ) {
 					$body = quoted_printable_decode( $body );
 				}
-				$this->showEmailcontent( $body, $plaintext );
+				$this->showEmailContent( $body, $plaintext );
 			}
 
 			Email::markRead( $emailId );
 		} else {
 			parent::execute( $emailId );
+			// TODO: i18n
 			$out->addHTML( 'email not found' );
 		}
 	}
 
-	/**
-	 * @param string $content
-	 * @param bool $plainText
-	 */
-	private function showEmailcontent( $content, $plainText = false ) {
+	private function showEmailContent( string $content, bool $plainText = false ): void {
 		if ( $plainText ) {
 			$html = Html::element(
 				'pre',
@@ -97,14 +86,11 @@ class SpecialInbox extends SpecialPage {
 		$this->getOutput()->addHTML( $html );
 	}
 
-	/**
-	 * @param string $emailAddress
-	 */
-	private function showAllEmails( $emailAddress ) {
+	private function showAllEmails( string $emailAddress ): void {
 		parent::execute( null );
 
-		// Show button to mark all as read / mark them as read if the button was clicked
-		$htmlForm = HTMLForm::factory( 'codex', [
+		// Show a button to mark all as read / mark them as read if the button was clicked
+		HTMLForm::factory( 'codex', [
 			[
 				'type' => 'submit',
 				'flags' => [],
@@ -121,7 +107,7 @@ class SpecialInbox extends SpecialPage {
 			->showAlways();
 
 		$emails = Email::getAll( $emailAddress );
-		if ( $emails ) {
+		if ( $emails->count() ) {
 			$this->getOutput()->addModuleStyles( [
 				'inbox.style',
 				'mediawiki.pager.styles',
@@ -130,6 +116,7 @@ class SpecialInbox extends SpecialPage {
 			$this->getOutput()->addHTML( Html::rawElement(
 				'table',
 				[ 'class' => 'email-all mw-datatable' ],
+				// TODO: i18n
 				'<tr><th>From</th><th>Subject</th><th>Time</th></tr>' .
 				implode( '', array_map( function ( $email ) {
 					return Html::rawElement(

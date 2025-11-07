@@ -9,19 +9,9 @@ use stdClass;
 use Wikimedia\Rdbms\IResultWrapper;
 
 class Email {
-
-	/** @var array */
-	private $headers;
-	/** @var string */
-	private $to;
-	/** @var string */
-	private $from;
-	/** @var string */
-	private $subject;
-	/** @var string */
-	private $body;
-	/** @var string */
-	private $timestamp;
+	private string $to;
+	private string $from;
+	private string $timestamp;
 
 	/**
 	 * @param array $headers Associative array of headers for the email
@@ -31,20 +21,20 @@ class Email {
 	 * @param string $body Body of the message
 	 * @param string|null $timestamp
 	 */
-	public function __construct( $headers, $to, $from, $subject, $body, $timestamp = null ) {
-		$this->headers = $headers;
+	public function __construct(
+		private readonly array $headers,
+		MailAddress|array $to,
+		MailAddress $from,
+		private readonly string $subject,
+		private readonly string $body,
+		?string $timestamp = null
+	) {
 		$this->to = $to[ 0 ]->address;
 		$this->from = $from->address;
-		$this->subject = $subject;
-		$this->body = $body;
 		$this->timestamp = $timestamp ?: wfTimestampNow();
 	}
 
-	/**
-	 * @param string $emailAddress
-	 * @return string
-	 */
-	public static function getNewestEmailTimestamp( $emailAddress ) {
+	public static function getNewestEmailTimestamp( string $emailAddress ): string {
 		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		return $dbr->selectField(
 			'inbox_email',
@@ -58,7 +48,7 @@ class Email {
 	/**
 	 * Save email to DB
 	 */
-	public function save() {
+	public function save(): void {
 		$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
 		$dbw->insert(
 			'inbox_email',
@@ -74,15 +64,11 @@ class Email {
 		);
 	}
 
-	/**
-	 * @param string $emailAddress
-	 * @return int|bool
-	 */
-	public static function getUnreadCount( $emailAddress ) {
+	public static function getUnreadCount( string $emailAddress ): int {
 		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
-		return $dbr->selectField(
+		return $dbr->selectRowCount(
 			'inbox_email',
-			'COUNT(*)',
+			'email_to',
 			[
 				'email_to' => $emailAddress,
 				'email_read' => 0,
@@ -92,11 +78,7 @@ class Email {
 		);
 	}
 
-	/**
-	 * @param string $emailAddress
-	 * @return IResultWrapper
-	 */
-	public static function getAll( $emailAddress ) {
+	public static function getAll( string $emailAddress ): IResultWrapper {
 		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		return $dbr->select(
 			'inbox_email',
@@ -107,12 +89,7 @@ class Email {
 		);
 	}
 
-	/**
-	 * @param string $emailAddress
-	 * @param string $id
-	 * @return stdClass
-	 */
-	public static function get( $emailAddress, $id ) {
+	public static function get( string $emailAddress, string $id ): stdClass|false {
 		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		return $dbr->selectRow(
 			'inbox_email',
@@ -122,10 +99,7 @@ class Email {
 		);
 	}
 
-	/**
-	 * @param string $id
-	 */
-	public static function markRead( $id ) {
+	public static function markRead( string $id ): void {
 		$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
 		$dbw->update(
 			'inbox_email',
@@ -135,7 +109,7 @@ class Email {
 		);
 	}
 
-	public static function markAllRead( string $to ) {
+	public static function markAllRead( string $to ): void {
 		$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
 		$dbw->update(
 			'inbox_email',
