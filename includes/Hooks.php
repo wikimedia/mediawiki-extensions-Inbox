@@ -79,7 +79,12 @@ class Hooks implements
 		];
 
 		if ( isset( $links['user-menu'] ) ) {
-			$links['user-menu'] = wfArrayInsertAfter( $links['user-menu'], [ 'inbox' => $inboxLink ], 'userpage' );
+			if ( isset( $links['user-menu']['userpage'] ) ) {
+				$links['user-menu'] = wfArrayInsertAfter( $links['user-menu'], [ 'inbox' => $inboxLink ], 'userpage' );
+			} else {
+				// If the link to userpage is missing, insert our link at the start.
+				$links['user-menu'] = [ 'inbox' => $inboxLink ] + $links['user-menu'];
+			}
 		}
 	}
 
