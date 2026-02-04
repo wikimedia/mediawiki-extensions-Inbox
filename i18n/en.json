@@ -5,5 +5,9 @@
 	"inbox-desc": "This extension provides a way to test emails locally.",
 	"inbox": "Inbox",
 	"inbox-mark-all-as-read": "Mark all as read",
-	"inbox-prod-warning": "The Inbox extension is for development and testing only. This should never be installed on a production site."
+	"inbox-prod-warning": "The Inbox extension is for development and testing only. This should never be installed on a production site.",
+	"inbox-header-from": "From",
+	"inbox-header-subject": "Subject",
+	"inbox-header-timestamp": "Time",
+	"inbox-email-not-found": "Email not found!"
 }

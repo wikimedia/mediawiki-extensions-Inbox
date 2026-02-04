@@ -64,8 +64,7 @@ class SpecialInbox extends SpecialPage {
 			Email::markRead( $emailId );
 		} else {
 			parent::execute( $emailId );
-			// TODO: i18n
-			$out->addHTML( 'email not found' );
+			$out->addWikiMsg( 'inbox-email-not-found' );
 		}
 	}
 
@@ -116,8 +115,11 @@ class SpecialInbox extends SpecialPage {
 			$this->getOutput()->addHTML( Html::rawElement(
 				'table',
 				[ 'class' => 'email-all mw-datatable' ],
-				// TODO: i18n
-				'<tr><th>From</th><th>Subject</th><th>Time</th></tr>' .
+				'<tr>' .
+					"<th>{$this->msg( 'inbox-header-from' )}</th>" .
+					"<th>{$this->msg( 'inbox-header-subject' )}</th>" .
+					"<th>{$this->msg( 'inbox-header-timestamp' )}</th>" .
+					'</tr>' .
 				implode( '', array_map( function ( $email ) {
 					return Html::rawElement(
 						'tr',
