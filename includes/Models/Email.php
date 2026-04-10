@@ -73,8 +73,7 @@ class Email {
 				'email_to' => $emailAddress,
 				'email_read' => 0,
 			],
-			__METHOD__,
-			[ 'GROUP BY' => 'email_to' ]
+			__METHOD__
 		);
 	}
 
