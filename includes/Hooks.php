@@ -40,10 +40,12 @@ class Hooks implements
 		}
 
 		$unreadCount = Email::getUnreadCount( $user->getEmail() );
-		// TODO: i18n
-		$text = 'Inbox';
 		if ( $unreadCount ) {
-			$text .= " ($unreadCount)";
+			$text = $sktemplate->msg( 'inbox-non-zero' )
+				->numParams( $unreadCount )
+				->plain();
+		} else {
+			$text = $sktemplate->msg( 'inbox-zero' )->plain();
 		}
 		$inboxLink = [
 			'href' => SpecialPage::getTitleFor( 'Inbox' )->getLinkURL(),

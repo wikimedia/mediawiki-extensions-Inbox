@@ -7,5 +7,7 @@
 	"inbox-header-from": "Table header for email sender",
 	"inbox-header-subject": "Table header for email subject",
 	"inbox-header-timestamp": "Table header for email time",
-	"inbox-email-not-found": "Error message shown when an email is not found."
+	"inbox-email-not-found": "Error message shown when an email is not found.",
+	"inbox-zero": "Text shown to link to the Inbox when there's no unread emails",
+	"inbox-non-zero": "Text shown to link to the Inbox when there are unread emails"
 }

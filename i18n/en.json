@@ -9,5 +9,7 @@
 	"inbox-header-from": "From",
 	"inbox-header-subject": "Subject",
 	"inbox-header-timestamp": "Time",
-	"inbox-email-not-found": "Email not found!"
+	"inbox-email-not-found": "Email not found!",
+	"inbox-zero": "Inbox",
+	"inbox-non-zero": "Inbox ($1)"
 }
