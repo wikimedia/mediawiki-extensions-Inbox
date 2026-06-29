@@ -1,6 +1,10 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Bartosz Dziewoński",
+			"Stephane Bisson",
+			"Sam Reed"
+		]
 	},
 	"inbox-desc": "This extension provides a way to test emails locally.",
 	"inbox": "Inbox",

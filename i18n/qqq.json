@@ -1,5 +1,11 @@
 {
-	"@metadata": [],
+	"@metadata": {
+		"authors": [
+			"Bartosz Dziewoński",
+			"Stephane Bisson",
+			"Sam Reed"
+		]
+	},
 	"inbox-desc": "{{desc|name=Inbox|url=https://www.mediawiki.org/wiki/Extension:Inbox}}",
 	"inbox": "Title for Special:Inbox",
 	"inbox-mark-all-as-read": "Button label",
