@@ -10,6 +10,7 @@ use MediaWiki\Hook\OutputPageCheckLastModifiedHook;
 use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
 use MediaWiki\Html\Html;
 use SpecialPage;
+use Wikimedia\ArrayUtils\ArrayUtils;
 
 class Hooks implements
 	AlternateUserMailerHook,
@@ -56,7 +57,14 @@ class Hooks implements
 
 		if ( isset( $links['user-menu'] ) ) {
 			if ( isset( $links['user-menu']['userpage'] ) ) {
-				$links['user-menu'] = wfArrayInsertAfter( $links['user-menu'], [ 'inbox' => $inboxLink ], 'userpage' );
+				if ( method_exists( ArrayUtils::class, 'insertAfter' ) ) {
+					// MW 1.46+
+					$links['user-menu'] = ArrayUtils::insertAfter(
+						$links['user-menu'], [ 'inbox' => $inboxLink ], 'userpage' );
+				} else {
+					$links['user-menu'] = wfArrayInsertAfter(
+						$links['user-menu'], [ 'inbox' => $inboxLink ], 'userpage' );
+				}
 			} else {
 				// If the link to userpage is missing, insert our link at the start.
 				$links['user-menu'] = [ 'inbox' => $inboxLink ] + $links['user-menu'];
