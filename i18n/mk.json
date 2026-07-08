@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"inbox-desc": "Овој додаток дава начин за месно испробување на е-пошта.",
+	"inbox": "Примени",
+	"inbox-mark-all-as-read": "Означи ги сите како прочитани",
+	"inbox-prod-warning": "Додатокот Примени е наменет само за разработка и испробување. Никогаш не треба да се воспоставува на готово мрежно место.",
+	"inbox-header-from": "Од",
+	"inbox-header-subject": "Наслов",
+	"inbox-header-timestamp": "Време",
+	"inbox-email-not-found": "Е-поштата не е пронајдена!",
+	"inbox-zero": "Примени",
+	"inbox-non-zero": "Примени ($1)"
+}

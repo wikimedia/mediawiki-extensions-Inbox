@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Amire80",
+			"Neriah"
+		]
+	},
+	"inbox-desc": "ההרחבה הזאת מספקת דרך לבדיקת דוא\"ל באופן מקומי.",
+	"inbox": "תיבת דואר נכנס",
+	"inbox-mark-all-as-read": "לסמן שהכול נקרא",
+	"inbox-prod-warning": "הרחבת Inbox מיועדת לפיתוח ובדיקה בלבד. אין להתקינה לעולם באתר ייצור.",
+	"inbox-header-from": "מאת",
+	"inbox-header-subject": "נושא",
+	"inbox-header-timestamp": "זמן",
+	"inbox-email-not-found": "דוא\"ל לא נמצא!",
+	"inbox-zero": "תיבת דואר נכנס",
+	"inbox-non-zero": "תיבת דואר נכנס ($1)"
+}

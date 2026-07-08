@@ -2,8 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Bartosz Dziewoński",
-			"Stephane Bisson",
-			"Sam Reed"
+			"Sam Reed",
+			"Stephane Bisson"
 		]
 	},
 	"inbox-desc": "{{desc|name=Inbox|url=https://www.mediawiki.org/wiki/Extension:Inbox}}",
