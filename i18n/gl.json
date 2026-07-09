@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"inbox-desc": "Esta extensión proporciona un xeito de probar os correos electrónicos localmente.",
+	"inbox": "Caixa de entrada",
+	"inbox-mark-all-as-read": "Marcar todo como lido",
+	"inbox-prod-warning": "A extensión Inbox é só para desenvolvemento e probas. Non debe instalarse nun sitio en produción."
+}

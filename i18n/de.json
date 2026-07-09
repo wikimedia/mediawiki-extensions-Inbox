@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"inbox-desc": "Diese Erweiterung bietet eine Möglichkeit, E-Mails lokal zu testen.",
+	"inbox": "Posteingang",
+	"inbox-mark-all-as-read": "Alle als gelesen markieren",
+	"inbox-prod-warning": "Die Erweiterung „Inbox“ ist ausschließlich für Entwicklungs- und Testzwecke vorgesehen. Sie sollte niemals auf einer Produktionswebsite installiert werden."
+}
