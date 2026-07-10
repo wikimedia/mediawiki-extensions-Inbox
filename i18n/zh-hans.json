@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"GuoPC"
+		]
+	},
+	"inbox-desc": "此扩展提供一种在本地测试电子邮件的方法。",
+	"inbox": "收件箱",
+	"inbox-mark-all-as-read": "标记所有为已读",
+	"inbox-prod-warning": "收件箱扩展仅用于开发和测试。请勿将其安装在生产环境中。",
+	"inbox-header-from": "发件人",
+	"inbox-header-subject": "主题",
+	"inbox-header-timestamp": "时间",
+	"inbox-email-not-found": "未找到电子邮件！",
+	"inbox-zero": "收件箱",
+	"inbox-non-zero": "收件箱（$1）"
+}

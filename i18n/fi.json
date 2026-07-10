@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wikipeedikko"
+		]
+	},
+	"inbox-desc": "Tällä laajennuksella voi testata sähköposteja paikallisesti.",
+	"inbox": "Postilaatikko",
+	"inbox-mark-all-as-read": "Merkitse kaikki luetuiksi",
+	"inbox-header-from": "Lähettäjä",
+	"inbox-header-subject": "Aihe",
+	"inbox-header-timestamp": "Aika",
+	"inbox-email-not-found": "Sähköpostia ei löydy!",
+	"inbox-zero": "Postilaatikko",
+	"inbox-non-zero": "Postilaatikko ($1)"
+}

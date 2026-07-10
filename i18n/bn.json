@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"আফতাবুজ্জামান"
+		]
+	},
+	"inbox": "ইনবক্স",
+	"inbox-mark-all-as-read": "সব পঠিত হিসেবে চিহ্নিত করুন",
+	"inbox-header-subject": "বিষয়",
+	"inbox-header-timestamp": "সময়"
+}
