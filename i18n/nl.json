@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"inbox-desc": "Deze uitbreiding biedt een manier om e-mails lokaal te testen.",
+	"inbox": "Postvak IN",
+	"inbox-mark-all-as-read": "Alles als gelezen markeren",
+	"inbox-prod-warning": "De uitbreiding “Postvak IN” is uitsluitend bedoeld voor ontwikkeling en testen en mag nooit op een productiesite worden geïnstalleerd."
+}
