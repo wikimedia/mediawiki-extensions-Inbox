@@ -42,8 +42,8 @@ class SpecialInbox extends SpecialPage {
 			$out->addHTML( '<hr />' );
 			$headers = array_change_key_case( FormatJson::decode( $email->email_headers, true ) );
 			if ( str_contains( $headers['content-type'], 'multipart' ) ) {
-				preg_match( '/boundary=\"(.*?)\"/', $headers[ 'content-type' ], $m );
-				$boundary = $m[1];
+				preg_match( '/boundary=(?:"([^"]*)"|(.*?))(?:;|$)/', $headers[ 'content-type' ], $m );
+				$boundary = $m[1] ?: $m[2];
 				$parts = explode( '--' . $boundary, $email->email_body );
 				// Assume multipart emails are always using Content-Transfer-Encoding: quoted-printable
 				// FIXME: We should probably parse the part headers here
