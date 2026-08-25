@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wizzard"
+		]
+	},
+	"inbox-desc": "Toto rozšírenie umožňuje testovať e-maily lokálne.",
+	"inbox": "Doručená pošta",
+	"inbox-prod-warning": "Rozšírenie Inbox je určené len na vývoj a testovanie. Nikdy by sa nemalo inštalovať na produkčnej stránke."
+}
