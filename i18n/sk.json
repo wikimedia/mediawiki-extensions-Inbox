@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wizzard"
+		]
+	},
+	"inbox-desc": "Toto rozšírenie umožňuje testovať e-maily lokálne.",
+	"inbox": "Doručená pošta",
+	"inbox-mark-all-as-read": "Označiť všetko ako prečítané",
+	"inbox-prod-warning": "Rozšírenie Inbox je určené len na vývoj a testovanie. Nikdy by sa nemalo inštalovať na produkčnej stránke.",
+	"inbox-header-from": "Od",
+	"inbox-header-subject": "Predmet",
+	"inbox-header-timestamp": "Čas",
+	"inbox-email-not-found": "E-mail sa nenašiel!",
+	"inbox-zero": "Doručená pošta",
+	"inbox-non-zero": "Doručená pošta ($1)"
+}
