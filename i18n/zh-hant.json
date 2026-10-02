@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kly"
+		]
+	},
+	"inbox-desc": "此擴充功能提供一種在本地測試電子郵件的方法。",
+	"inbox": "收件匣",
+	"inbox-mark-all-as-read": "全部標記為已讀",
+	"inbox-prod-warning": "收件匣擴充功能僅用於開發和測試。切勿將其安裝在生產環境站台。",
+	"inbox-header-from": "寄件者",
+	"inbox-header-subject": "主旨",
+	"inbox-header-timestamp": "時間",
+	"inbox-email-not-found": "找不到電子郵件！",
+	"inbox-zero": "收件匣",
+	"inbox-non-zero": "收件匣（$1）"
+}
