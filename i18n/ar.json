@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Meno25"
+		]
+	},
+	"inbox-desc": "يوفر هذا الامتداد طريقة لاختبار رسائل البريد الإلكتروني محليًا.",
+	"inbox": "صندوق الوارد",
+	"inbox-mark-all-as-read": "ضع علامة \"مقروء\" على الكل",
+	"inbox-prod-warning": "إضافة صندوق الوارد مخصصة للتطوير والاختبار فقط. لا ينبغي تثبيتها مطلقًا على موقع إنتاجي.",
+	"inbox-header-from": "من",
+	"inbox-header-subject": "موضوع",
+	"inbox-header-timestamp": "وقت",
+	"inbox-email-not-found": "لم يتم العثور على البريد الإلكتروني!",
+	"inbox-zero": "صندوق الوارد",
+	"inbox-non-zero": "صندوق الوارد ( $1 )"
+}
