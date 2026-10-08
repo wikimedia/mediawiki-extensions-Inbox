@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kly"
+		]
+	},
+	"inbox-desc": "此擴充功能提供一種在本地測試電子郵件的方法。",
+	"inbox": "收件匣",
+	"inbox-mark-all-as-read": "全部標記為已讀",
+	"inbox-prod-warning": "收件匣擴充功能僅用於開發和測試。切勿將其安裝在生產環境站台。"
+}
